@@ -263,7 +263,7 @@ if __name__ == '__main__':
     procs = [NaiveSimulator(k, name, name2) for k in range(20)]
     [k.start() for k in procs]
 
-    th = NaiveActioner(name)
+    th = NaiveActioner(name, name2)
     ensure_proc_terminate(procs)
     th.start()
 
