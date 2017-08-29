@@ -83,7 +83,7 @@ device = 2
 def worker(num):
     """thread worker function"""
     print('Start Proc%d ...' % num)
-    per_proc_sample = 200
+    per_proc_sample = 2000
     world = create_world(all_houseIDs[num % 20])
     env = HouseEnv(world, colorFile, resolution=(120, 90), linearReward=True,
                    hardness=0.6, action_degree=4,
