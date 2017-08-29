@@ -78,6 +78,7 @@ class NaiveHouseEnvironment:
 import multiprocessing
 
 n_proc = 5
+device = 2
 
 def worker(num):
     """thread worker function"""
@@ -88,7 +89,8 @@ def worker(num):
                    hardness=0.6, action_degree=4,
                    segment_input=True,
                    use_segment_id=False,
-                   joint_visual_signal=True)
+                   joint_visual_signal=True,
+                   render_device=device)
     obs = env.reset()
     tstart = time.time()
     print('Proc<%d> Start Time = %.8f' % (num, tstart))
