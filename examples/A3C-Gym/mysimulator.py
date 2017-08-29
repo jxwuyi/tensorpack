@@ -259,7 +259,8 @@ if __name__ == '__main__':
                 print('>> Samples = %d, Total Time Elapsed = %.4fs, Samples per Sec = %.5fs' % (self.cnt, det, self.cnt/det))
 
     name = 'ipc://whatever'
-    procs = [NaiveSimulator(k, name) for k in range(20)]
+    name2 = 'ipc://whatever2'
+    procs = [NaiveSimulator(k, name, name2) for k in range(20)]
     [k.start() for k in procs]
 
     th = NaiveActioner(name)
