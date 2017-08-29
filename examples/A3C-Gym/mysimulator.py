@@ -235,6 +235,8 @@ class NaiveHouseEnvironment:
         return rew, done
 
 if __name__ == '__main__':
+    import random
+
     class NaiveSimulator(SimulatorProcess):
 
         def _build_player(self):
@@ -242,10 +244,12 @@ if __name__ == '__main__':
 
     class NaiveActioner(SimulatorMaster):
         def _get_action(self, state):
-            def gen_act(d):
+            """def gen_act(d):
                 x = F.softmax(Variable(torch.randn(d)))
                 return x.data.numpy()
             return [gen_act(4), gen_act(2)]
+            """
+            return random.randint(0,12)
 
         def _on_episode_over(self, client):
             # print("Over: ", client.memory)
@@ -254,17 +258,17 @@ if __name__ == '__main__':
 
         def _on_state(self, state, ident):
             self.cnt += 1
-            if self.cnt % 500 == 0:
+            if self.cnt % 1 == 0:
                 det = time.time() - self.start_time
                 print('>> Samples = %d, Total Time Elapsed = %.4fs, Samples per Sec = %.5fs' % (self.cnt, det, self.cnt/det))
 
     name = 'ipc://whatever'
     name2 = 'ipc://whatever2'
-    procs = [NaiveSimulator(k, name, name2) for k in range(20)]
+    procs = [NaiveSimulator(k, name, name2) for k in range(5)]
     [k.start() for k in procs]
 
     th = NaiveActioner(name, name2)
     ensure_proc_terminate(procs)
     th.start()
 
-    time.sleep(100)
+    time.sleep(10000)
